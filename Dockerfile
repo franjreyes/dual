@@ -1,7 +1,7 @@
 FROM openjdk:17
 
-EXPOSE 8080
+COPY target/dual-*.jar dual.jar
 
-COPY target/dual-0.0.1-SNAPSHOT.jar dual.jar
+EXPOSE 8080
 
 ENTRYPOINT ["java", "-jar", "/dual.jar"]
