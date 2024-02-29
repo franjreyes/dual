@@ -24,11 +24,11 @@ public class LibroEntityDtoMapper {
     	}
     	return null;
     }
-	public static LibroDto toListDto(Libro entity) {
+	public static LibroDto toDto(Libro entity) {
 		return toDto(entity, false);
 	}
 
-	public static LibroDto toDto(Libro entity) {
+	public static LibroDto toFullDto(Libro entity) {
 		return toDto(entity, true);
 	}
 

@@ -26,22 +26,22 @@ public class LibroController {
     @GetMapping
     public Page<LibroDto> getLibros(Pageable pageable, @Nullable @Param("usuario") String usuario) {
         return servicio.getAll(pageable, usuario)
-                .map(LibroEntityDtoMapper::toListDto);
+                .map(LibroEntityDtoMapper::toDto);
     }
 
     @GetMapping("{isbn}")
     public LibroDto getLibro(@PathVariable UUID isbn) {
-        return LibroEntityDtoMapper.toDto(servicio.get(isbn));
+        return toFullDto(servicio.get(isbn));
     }
 
     @PostMapping
     public LibroDto saveLibro(@RequestBody LibroDto libro) {
-        return toDto(servicio.save(toEntity(libro)));
+        return toFullDto(servicio.save(toEntity(libro)));
     }
 
     @PutMapping("{isbn}")
     public LibroDto editLibro(@RequestBody LibroDto libro, @PathVariable UUID isbn) {
-        return toDto(servicio.save(toEntity(libro), isbn));
+        return toFullDto(servicio.save(toEntity(libro), isbn));
     }
 
     @DeleteMapping("{isbn}")
@@ -49,8 +49,8 @@ public class LibroController {
         servicio.delete(isbn);
     }
 
-    protected LibroDto toDto(Libro libro) {
-        return LibroEntityDtoMapper.toDto(libro);
+    protected LibroDto toFullDto(Libro libro) {
+        return LibroEntityDtoMapper.toFullDto(libro);
     }
 
     protected Libro toEntity(LibroDto libro) {

@@ -16,7 +16,7 @@ public class LibroDto {
     @JsonInclude(Include.NON_NULL)
     private List<String> autores;
 
-    @JsonIgnore
+    @JsonInclude(Include.NON_NULL)
     private UsuarioDto usuario;
 
     public LibroDto() {
