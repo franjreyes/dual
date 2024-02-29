@@ -1,17 +1,11 @@
 package org.formacion.dual.v1.controller;
 
-import jakarta.annotation.Nullable;
 import org.formacion.dual.v1.dto.AutorDto;
-import org.formacion.dual.v1.dto.LibroDto;
 import org.formacion.dual.v1.dto.mapper.AutorEntityDtoMapper;
-import org.formacion.dual.v1.dto.mapper.LibroEntityDtoMapper;
 import org.formacion.dual.v1.persistence.model.Autor;
-import org.formacion.dual.v1.persistence.model.Libro;
 import org.formacion.dual.v1.service.AutorService;
-import org.formacion.dual.v1.service.LibroService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;

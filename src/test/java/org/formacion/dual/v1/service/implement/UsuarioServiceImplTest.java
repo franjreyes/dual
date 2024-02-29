@@ -9,6 +9,7 @@ import static org.mockito.Mockito.verify;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.formacion.dual.v1.exception.ImagenException;
 import org.formacion.dual.v1.persistence.model.Usuario;
 import org.formacion.dual.v1.persistence.repository.UsuarioRepository;
 import org.junit.jupiter.api.BeforeAll;
@@ -39,7 +40,7 @@ class UsuarioServiceImplTest {
     }
 
 	@Test
-	void guargaUsuario() {		
+	void guargaUsuario() throws ImagenException {
 		doReturn(usuario).when(repositorio).save(usuario);
 		
 		usuarioServiceImpl.save(usuario);

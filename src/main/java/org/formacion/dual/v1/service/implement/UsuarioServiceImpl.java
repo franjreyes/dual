@@ -1,5 +1,7 @@
 package org.formacion.dual.v1.service.implement;
 
+import org.formacion.dual.v1.exception.ImagenException;
+import org.formacion.dual.v1.exception.UsuarioException;
 import org.formacion.dual.v1.persistence.model.Usuario;
 import org.formacion.dual.v1.persistence.repository.UsuarioRepository;
 import org.formacion.dual.v1.service.UsuarioService;
@@ -19,7 +21,10 @@ public class UsuarioServiceImpl implements UsuarioService {
         this.repositorio = repositorio;
     }
 
-    public Usuario save(Usuario usuario) {
+    public Usuario save(Usuario usuario) throws ImagenException {
+        /*if (usuario.getImagen() == null || usuario.getImagen().length() == 0) {
+            throw new ImagenException("La imagen para el usuario " + usuario.getNombre() + " no existe");
+        }*/
         return repositorio.save(usuario);
     }
 
@@ -36,9 +41,12 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public Usuario save(Usuario entity, UUID id) {
-        Optional<Usuario> dbo = repositorio.findById(id);
-        dbo.ifPresent(u -> entity.setId(u.getId()));
+    public Usuario save(Usuario entity, UUID id) throws UsuarioException, ImagenException {
+        Usuario dbo = repositorio.findById(id).orElseThrow(()->new UsuarioException("No existe el usaurio con ID " + id));
+        entity.setId(dbo.getId());
+        if (entity.getImagen() == null || entity.getImagen().length() == 0) {
+            throw new ImagenException("La imagen para el usuario con id " + id + " no existe");
+        }
         return repositorio.save(entity);
     }
 

@@ -3,6 +3,7 @@ package org.formacion.dual.v1.controller;
 import jakarta.annotation.Nullable;
 import org.formacion.dual.v1.dto.LibroDto;
 import org.formacion.dual.v1.dto.mapper.LibroEntityDtoMapper;
+import org.formacion.dual.v1.exception.ImagenException;
 import org.formacion.dual.v1.persistence.model.Libro;
 import org.formacion.dual.v1.service.LibroService;
 import org.springframework.data.domain.Page;
@@ -57,7 +58,7 @@ public class LibroController {
     }
 
     @GetMapping("inicio-db")
-    public void inicioDB() {
+    public void inicioDB() throws ImagenException {
         servicio.initDB();
     }
 

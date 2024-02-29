@@ -11,6 +11,7 @@ public class UsuarioEntityDtoMapper {
     	if(Objects.nonNull(dto)) {
 	        Usuario entity = new Usuario();
 	        entity.setNombre(dto.getNombre());
+			entity.setImagen(dto.getImagen());
 	        return entity;
     	}
     	return null;
@@ -20,6 +21,7 @@ public class UsuarioEntityDtoMapper {
     	if(Objects.nonNull(entity)) {
 	        UsuarioDto dto = new UsuarioDto();
 	        dto.setNombre(entity.getNombre());
+			dto.setImagen(entity.getImagen());
 	        return dto;
     	}
     	return null;

@@ -1,5 +1,6 @@
 package org.formacion.dual.v1.service;
 
+import org.formacion.dual.v1.exception.ImagenException;
 import org.formacion.dual.v1.persistence.model.Libro;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +17,7 @@ public interface LibroService {
 
     Page<Libro> getAll(Pageable pageable, String usuario);
 
-	Integer initDB();
+	void initDB() throws ImagenException;
 
     void delete(UUID isbn);
 }

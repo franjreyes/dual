@@ -1,6 +1,7 @@
 package org.formacion.dual.v1.service.implement;
 
 import org.apache.commons.lang3.StringUtils;
+import org.formacion.dual.v1.exception.ImagenException;
 import org.formacion.dual.v1.persistence.model.Autor;
 import org.formacion.dual.v1.persistence.model.Libro;
 import org.formacion.dual.v1.persistence.model.Usuario;
@@ -15,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class LibroServiceImpl implements LibroService {
@@ -71,28 +71,27 @@ public class LibroServiceImpl implements LibroService {
     }
 
 	@Override
-    @Transactional
-	public Integer initDB() {
+    @Transactional(rollbackFor = ImagenException.class)
+	public void initDB() throws ImagenException {
+
+        Libro libro1 = new Libro();
+        libro1.setAutores(Collections.singletonList(new Autor("Federico García Lorca")));
+        libro1.setTitulo("Romancero gitano");
+        save(libro1);
+
 		Usuario luigi = new Usuario();
 		luigi.setNombre("Luigi");
 		servicioUsuario.save(luigi);
-		Libro libro1 = new Libro();
-		libro1.setAutores(Collections.singletonList(new Autor("Miguel de Cervantes")));
-		libro1.setTitulo("Don Quijote");
-		libro1.setUsuario(luigi);		
-		save(libro1);
-		
 		Libro libro2 = new Libro();
-		libro2.setAutores(Collections.singletonList(new Autor("Federico García Lorca")));
-		libro2.setTitulo("Romancero gitano");
-		libro2.setUsuario(luigi);
+        libro2.setAutores(Collections.singletonList(new Autor("Miguel de Cervantes")));
+        libro2.setTitulo("Don Quijote");
+        libro2.setUsuario(luigi);
 		save(libro2);
 		
 		Libro libro3 = new Libro();
 		libro3.setAutores(Collections.singletonList(new Autor("Lope de Vega")));
 		libro3.setTitulo("La Dorotea");
+        libro3.setUsuario(luigi);
 		save(libro3);
-		
-		return 1;
 	}
 }

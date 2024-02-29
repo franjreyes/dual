@@ -2,6 +2,7 @@ package org.formacion.dual.v1.controller;
 
 import org.formacion.dual.v1.dto.UsuarioDto;
 import org.formacion.dual.v1.dto.mapper.UsuarioEntityDtoMapper;
+import org.formacion.dual.v1.exception.ImagenException;
 import org.formacion.dual.v1.service.UsuarioService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,12 +31,12 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public UsuarioDto save(@RequestBody UsuarioDto usuario) {
+    public UsuarioDto save(@RequestBody UsuarioDto usuario) throws ImagenException {
         return UsuarioEntityDtoMapper.toDto(servicio.save(UsuarioEntityDtoMapper.toEntity(usuario)));
     }
 
     @PutMapping("{id}")
-    public UsuarioDto update(@RequestBody UsuarioDto usuario, @PathVariable UUID id) {
+    public UsuarioDto update(@RequestBody UsuarioDto usuario, @PathVariable UUID id) throws ImagenException {
         return UsuarioEntityDtoMapper.toDto(servicio.save(UsuarioEntityDtoMapper.toEntity(usuario), id));
     }
 

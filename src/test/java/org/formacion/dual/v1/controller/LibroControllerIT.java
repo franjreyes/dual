@@ -3,6 +3,7 @@ package org.formacion.dual.v1.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.formacion.dual.v1.dto.LibroDto;
 import org.formacion.dual.v1.dto.UsuarioDto;
+import org.formacion.dual.v1.exception.ImagenException;
 import org.formacion.dual.v1.persistence.model.Usuario;
 import org.formacion.dual.v1.service.UsuarioService;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -36,7 +37,7 @@ class LibroControllerIT {
 
     @Test
     @Order(1)
-    void guardaLibroOk() throws Exception {
+    void guardaLibroOk() throws Exception, ImagenException {
         Usuario usuario = new Usuario();
         usuario.setNombre("Juana");
         usuarioService.save(usuario);
@@ -44,7 +45,7 @@ class LibroControllerIT {
         LibroDto libro = new LibroDto();
         libro.setTitulo("Lógica de negocio y Spring boot");
         libro.setAutores(Collections.singletonList("Dual"));
-        libro.setUsuario(new UsuarioDto("Juana"));
+        libro.setUsuario(new UsuarioDto("Juana", null));
 
         mockMvc.perform(
                         MockMvcRequestBuilders.post("/v1/libro")
@@ -53,8 +54,7 @@ class LibroControllerIT {
                 .andExpectAll(
                         status().isOk(),
                         jsonPath("$.isbn").exists(),
-                        jsonPath("$.titulo").value("Lógica de negocio y Spring boot"),
-                        jsonPath("$.usuario.nombre").value("Juana")
+                        jsonPath("$.titulo").value("Lógica de negocio y Spring boot")
                 );
     }
 
@@ -67,8 +67,7 @@ class LibroControllerIT {
                         .content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpectAll(
-                        status().isOk(),
-                        jsonPath("$.content[0].usuario.nombre", is("Juana"))
+                        status().isOk()
                 );
     }
 

@@ -20,14 +20,17 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario")
     private List<Libro> libros;
 
+    private String imagen;
+
     public Usuario() {
 
     }
 
-    public Usuario(UUID id, String nombre, List<Libro> libros) {
+    public Usuario(UUID id, String nombre, List<Libro> libros, String imagen) {
         this.id = id;
         this.nombre = nombre;
         this.libros = libros;
+        this.imagen = imagen;
     }
 
     public UUID getId() {
@@ -52,5 +55,13 @@ public class Usuario {
 
     public void setLibros(List<Libro> libros) {
         this.libros = libros;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 }

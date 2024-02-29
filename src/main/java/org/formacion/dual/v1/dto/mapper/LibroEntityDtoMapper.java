@@ -32,15 +32,15 @@ public class LibroEntityDtoMapper {
 		return toDto(entity, true);
 	}
 
-    public static LibroDto toDto(Libro entity, boolean conAutores) {
+    public static LibroDto toDto(Libro entity, boolean conAutoresYUsuario) {
     	if(Objects.nonNull(entity)) {
 	        LibroDto dto = new LibroDto();
 	        dto.setIsbn(entity.getIsbn());
 	        dto.setTitulo(entity.getTitulo());
-			if(conAutores) {
+			if(conAutoresYUsuario) {
 				dto.setAutores(entity.getAutores().stream().map(Autor::getNombre).collect(Collectors.toList()));
+	        	dto.setUsuario(UsuarioEntityDtoMapper.toDto(entity.getUsuario()));
 			}
-	        dto.setUsuario(UsuarioEntityDtoMapper.toDto(entity.getUsuario()));
 	        return dto;
     	}
     	return null;
